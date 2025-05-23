@@ -1,21 +1,31 @@
 import requests
+import RPi.GPIO as GPIO
+import time
 
-# Defina a URL e os dados a serem enviados na requisição POST
-url = 'http://172.16.10.175/comando'
-data = {'comando': 'imprima_produto'}
+def button_calback(channel):
+    print("Botão Pressionado")
+    # Defina a URL e os dados a serem enviados na requisição POST
+    url = "http://172.16.10.175/comando"
+    payload = {'comando': 'imprime_produto',}
 
-payload = {
-    'comando': 'imprime_produto',
-}
+    # Cabeçalhos da requisição
+    headers = {'Content-Type': 'application/json'}
 
-# Cabeçalhos da requisição
-headers = {
-    'Content-Type': 'application/json'
-}
+    # Envia o POST
+    response = requests.post(url, json=payload, headers=headers)
 
-# Envia o POST
-response = requests.post(url, json=payload, headers=headers)
+    # Imprima o código de status e o conteúdo da resposta
+    print(f"Código de Status: {response.status_code}")
+    print(f"Conteúdo da Resposta: {response.text}")
 
-# Imprima o código de status e o conteúdo da resposta
-print(f"Código de Status: {response.status_code}")
-print(f"Conteúdo da Resposta: {response.text}")
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(10, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.add_event_detect(10, GPIO.RISING, callback=button_calback, bouncetime=200)
+
+try:
+	while True:
+		time.sleep(1)
+except:
+	GPIO.cleanup()
