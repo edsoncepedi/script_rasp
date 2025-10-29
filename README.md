@@ -132,14 +132,6 @@ pip install requests RPi.GPIO
 
 ---
 
-## 🧑‍💻 Autor
-
-**Edson Alves**  
-Engenheiro Eletricista | UFERSA  
-💼 [LinkedIn](https://www.linkedin.com) • 📧 edson.silva17274@alunos.ufersa.edu.br  
-
----
-
 ## 🛠️ Licença
 
 Este projeto é distribuído sob a licença **MIT**.  
