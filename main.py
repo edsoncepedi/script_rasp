@@ -5,8 +5,8 @@ import time
 def button_calback(channel):
     print("Botão Pressionado")
     # Defina a URL e os dados a serem enviados na requisição POST
-    url = "http://172.16.10.175/comando"
-    payload = {'comando': 'imprime_produto0'}
+    url = "http://172.16.10.175:7000/comando"
+    payload = {'comando': 'imprime_produto'}
 
     # Cabeçalhos da requisição
     headers = {'Content-Type': 'application/json'}
@@ -20,9 +20,9 @@ def button_calback(channel):
 
 def main():
     GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(10, GPIO.IN) 
+    GPIO.setup(11, GPIO.IN) 
     
-    GPIO.add_event_detect(10, GPIO.FALLING, callback=button_calback, bouncetime=1000)
+    GPIO.add_event_detect(11, GPIO.FALLING, callback=button_calback, bouncetime=1000)
 
     try:
         while True:
